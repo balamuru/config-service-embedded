@@ -1,9 +1,11 @@
 package com.vgb.configclient;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.config.environment.Environment;
 import org.springframework.cloud.config.environment.PropertySource;
 import org.springframework.cloud.config.server.environment.EnvironmentRepository;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.Ordered;
 import org.springframework.stereotype.Component;
@@ -15,7 +17,7 @@ import java.util.logging.Logger;
 
 @Profile("custom")
 @ConfigurationProperties("spring.cloud.config.server.custom")
-public class CustomEnvironmentRepository implements EnvironmentRepository, Ordered{
+public class CustomEnvironmentRepository implements EnvironmentRepository, Ordered {
 
     final Logger log = Logger.getLogger(this.getClass().getName());
 
@@ -32,6 +34,7 @@ public class CustomEnvironmentRepository implements EnvironmentRepository, Order
         this.password = password;
         this.url = url;
         this.order = order;
+
     }
 
     @Override
@@ -93,6 +96,7 @@ public class CustomEnvironmentRepository implements EnvironmentRepository, Order
 
     /**
      * form the connection string
+     *
      * @return
      */
     private String connectionString() {
@@ -101,11 +105,12 @@ public class CustomEnvironmentRepository implements EnvironmentRepository, Order
 
     /**
      * retrieve properties
+     *
      * @param application
      * @param profiles
      * @return
      */
-    private Map<String,String> properties(String application, String[] profiles) {
+    private Map<String, String> properties(String application, String[] profiles) {
         //potentially use the application and profiles to obtain desired information from the store
         return new HashMap() {
             {
