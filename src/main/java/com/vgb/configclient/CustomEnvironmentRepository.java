@@ -45,7 +45,7 @@ public class CustomEnvironmentRepository implements EnvironmentRepository, Order
         final Environment environment = new Environment(application, profiles, label, null, null);
 
         //add matching repository values into the environment
-        environment.add(new PropertySource("customProperty", properties(application, profiles)));
+        environment.add(new PropertySource("custom", properties(application, profiles)));
         return environment;
     }
 
