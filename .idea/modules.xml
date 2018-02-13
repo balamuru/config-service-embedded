@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/config-service-embedded.iml" filepath="$PROJECT_DIR$/config-service-embedded.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/config-service-embedded_main.iml" filepath="$PROJECT_DIR$/.idea/modules/config-service-embedded_main.iml" group="config-service-embedded" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/config-service-embedded_test.iml" filepath="$PROJECT_DIR$/.idea/modules/config-service-embedded_test.iml" group="config-service-embedded" />
+    </modules>
+  </component>
+</project>
