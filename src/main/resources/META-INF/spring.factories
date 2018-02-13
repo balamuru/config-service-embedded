@@ -1,6 +1,8 @@
+org.springframework.cloud.bootstrap.BootstrapConfiguration=\
+com.vgb.configclient.CustomEnvironmentRepositoryConfiguration
+
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 com.vgb.configclient.CustomEnvironmentRepositoryConfiguration
 
-org.springframework.cloud.bootstrap.BootstrapConfiguration=\
-com.vgb.configclient.CustomEnvironmentRepository,com.vgb.configclient.CustomEnvironmentRepositoryConfiguration
+
 

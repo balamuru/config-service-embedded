@@ -4,6 +4,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.config.environment.Environment;
 import org.springframework.cloud.config.environment.PropertySource;
 import org.springframework.cloud.config.server.environment.EnvironmentRepository;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.Ordered;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
-@Component
+@Profile("custom")
 @ConfigurationProperties("spring.cloud.config.server.custom")
 public class CustomEnvironmentRepository implements EnvironmentRepository, Ordered{
 
@@ -35,27 +36,16 @@ public class CustomEnvironmentRepository implements EnvironmentRepository, Order
 
     @Override
     public Environment findOne(String application, String profile, String label) {
-        log.info("\n###########\nAttempting to connect to custom url at " + connectionString() + "\n###########\n");
-        final Environment environment = new Environment(application, profile);
-        environment.add(new PropertySource("customProperty", properties()));
+        //connect to the desired repository
+        log.info("\n###########\nTODO: connect to custom repository for " + application + ":" + profile + " at " + connectionString() + "\n###########\n");
+        final String[] profiles = {profile};
+        final Environment environment = new Environment(application, profiles, label, null, null);
+
+        //add matching repository values into the environment
+        environment.add(new PropertySource("customProperty", properties(application, profiles)));
         return environment;
     }
 
-    private String connectionString() {
-        return getUrl() + "/" + getUserId();
-    }
-    private Map<String,String> properties() {
-        return new HashMap() {
-            {
-                put("custom.prop.1", "custom.value.1");
-                put("custom.prop.2", "custom.value.2");
-                put("custom.prop.3", "custom.value.3");
-                put("custom.prop.4", "custom.value.4");
-                put("props.name", "custom.value");
-
-            }
-        };
-    }
 
     @Override
     public int getOrder() {
@@ -98,5 +88,34 @@ public class CustomEnvironmentRepository implements EnvironmentRepository, Order
                 ", url='" + url + '\'' +
                 ", order=" + order +
                 '}';
+    }
+
+
+    /**
+     * form the connection string
+     * @return
+     */
+    private String connectionString() {
+        return getUrl() + "/" + getUserId();
+    }
+
+    /**
+     * retrieve properties
+     * @param application
+     * @param profiles
+     * @return
+     */
+    private Map<String,String> properties(String application, String[] profiles) {
+        //potentially use the application and profiles to obtain desired information from the store
+        return new HashMap() {
+            {
+                put("custom.prop.1", "custom.value.1");
+                put("custom.prop.2", "custom.value.2");
+                put("custom.prop.3", "custom.value.3");
+                put("custom.prop.4", "custom.value.4");
+                put("props.name", "custom.value");
+
+            }
+        };
     }
 }
